@@ -26,13 +26,13 @@
     <div [hidden]="message_isHidden" id="error_message">
       <p class="error_message">{{error_length}}</p>
     </div>
-    <button (click)="button_commencer_click()">Commencer</button>
+    <ion-button (click)="button_commencer_click()">Commencer</ion-button>
   </div>
 
   <div [hidden]="question_isHidden">
     <p>{{ pseudo }}</p>
     <p>Une question placeholder ?</p>
     <button *ngFor="let reponse of reponses" (click)="button_reponse_click()">Réponse {{reponse}}</button>
-    <button [hidden]="suivant_isHidden" >Question suivante</button>
+    <ion-button [hidden]="suivant_isHidden" >Question suivante</ion-button>
   </div>
 </ion-content>

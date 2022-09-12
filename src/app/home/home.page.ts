@@ -12,12 +12,13 @@ export class HomePage {
   message_isHidden: boolean = true;
   question_isHidden: boolean = true;
   suivant_isHidden: boolean = true;
-  error_length: string = 'Votre mot de passe doit faire plus de 3 caractères';
+  contrainte = 5;
+  error_length: string = 'Votre mot de passe doit faire plus de '+ this.contrainte +' caractères';
   reponses: string[] = ['A', 'B', 'C', 'D'];
   constructor() {}
 
   button_commencer_click() {
-    if (this.pseudo.length < 3) {
+    if (this.pseudo.length < this.contrainte) {
       this.message_isHidden = false;
     }else{
       this.form_isHidden = true;
