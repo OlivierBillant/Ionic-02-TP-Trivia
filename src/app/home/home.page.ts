@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -13,20 +15,40 @@ export class HomePage {
   question_isHidden: boolean = true;
   suivant_isHidden: boolean = true;
   contrainte = 5;
-  error_length: string = 'Votre mot de passe doit faire plus de '+ this.contrainte +' caractères';
+  error_length: string =
+    'Votre mot de passe doit faire plus de ' + this.contrainte + ' caractères';
   reponses: string[] = ['A', 'B', 'C', 'D'];
-  constructor() {}
 
-  button_commencer_click() {
+  constructor(
+    private alertController: AlertController,
+    private toastController: ToastController
+  ) {}
+
+  async button_commencer_click() {
     if (this.pseudo.length < this.contrainte) {
-      this.message_isHidden = false;
-    }else{
+      //this.message_isHidden = false;
+
+      const alert = await this.alertController.create({
+        header: 'Erreur',
+        message: this.error_length,
+        buttons: ['OK'],
+      });
+
+      await alert.present();
+    } else {
       this.form_isHidden = true;
       this.question_isHidden = false;
     }
   }
 
-  button_reponse_click(){
+  async button_reponse_click(position: 'top' | 'middle' | 'bottom', reponse:string) {
     this.suivant_isHidden = false;
+    const toast = await this.toastController.create({
+      message: 'Votre réponse est '+reponse,
+      duration: 1500,
+      position: position,
+    });
+
+    await toast.present();
   }
 }

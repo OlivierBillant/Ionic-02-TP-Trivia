@@ -25,15 +25,27 @@
     <div [hidden]="message_isHidden" id="error_message">
       <p class="error_message">{{error_length}}</p>
     </div>
-    <ion-button (click)="button_commencer_click()" expand="full">Commencer</ion-button>
+    <ion-button (click)="button_commencer_click()" expand="full"
+      >Commencer</ion-button
+    >
   </div>
 
   <div [hidden]="question_isHidden">
-    <p>{{ pseudo }}</p>
-    <p>Une question placeholder ?</p>
-    <button *ngFor="let reponse of reponses" (click)="button_reponse_click()">
+    <form action="post">
+    <p class="detail">Bienvenue {{ pseudo }}</p>
+    <ion-label>Une question placeholder ?</ion-label>
+    <br />
+    <ion-button
+      size="small"
+      type="submit"
+      *ngFor="let reponse of reponses"
+      (click)="button_reponse_click('bottom', reponse)"
+    >
       Réponse {{reponse}}
-    </button>
-    <ion-button [hidden]="suivant_isHidden">Question suivante</ion-button>
+    </ion-button>
+    </form>
+    <ion-button [hidden]="suivant_isHidden" expand="full"
+      >Question suivante</ion-button
+    >
   </div>
 </ion-content>
