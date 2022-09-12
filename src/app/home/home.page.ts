@@ -41,10 +41,13 @@ export class HomePage {
     }
   }
 
-  async button_reponse_click(position: 'top' | 'middle' | 'bottom', reponse:string) {
+  async button_reponse_click(
+    position: 'top' | 'middle' | 'bottom',
+    reponse: string
+  ) {
     this.suivant_isHidden = false;
     const toast = await this.toastController.create({
-      message: 'Votre réponse est '+reponse,
+      message: 'Votre réponse est ' + reponse,
       duration: 1500,
       position: position,
     });
