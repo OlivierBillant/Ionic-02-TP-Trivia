@@ -32,17 +32,17 @@
 
   <div [hidden]="question_isHidden">
     <form action="post">
-    <p class="detail">Bienvenue {{ pseudo }}</p>
-    <ion-label>Une question placeholder ?</ion-label>
-    <br />
-    <ion-button
-      size="small"
-      type="submit"
-      *ngFor="let reponse of reponses"
-      (click)="button_reponse_click('bottom', reponse)"
-    >
-      Réponse {{reponse}}
-    </ion-button>
+      <p class="detail">Bienvenue {{ pseudo }}</p>
+      <ion-label>Une question placeholder ?</ion-label>
+      <br />
+        <ion-button
+          size="small"
+          type="submit"
+          *ngFor="let reponse of reponses"
+          (click)="button_reponse_click('bottom', reponse)"
+        >
+          Réponse {{reponse}}
+        </ion-button>
     </form>
     <ion-button [hidden]="suivant_isHidden" expand="full"
       >Question suivante</ion-button
