@@ -1,12 +1,38 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Open Trivia
-    </ion-title>
+    <ion-title> Open Trivia </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<div>{{ pseudo }}</div>
+<ion-content [fullscreen]="true">
+  <div [hidden]="form_isHidden">
+    <div>
+      <label>Entrez votre pseudo</label>
+      <input type="text" [(ngModel)]="pseudo" />
+    </div>
+    <div>
+      <label>Difficulté</label>
+      <br />
+      <select name="difficulte" id="select_difficulte">
+        <option *ngFor="let niveau of niveaux" value="{{niveau}}">
+          {{niveau}}
+        </option>
+      </select>
+    </div>
+    <div>
+      <input type="checkbox" />
+      <label>Sauvegardez mes informations</label>
+    </div>
+    <div [hidden]="message_isHidden" id="error_message">
+      <p class="error_message">{{error_length}}</p>
+    </div>
+    <button (click)="button_commencer_click()">Commencer</button>
+  </div>
 
-
+  <div [hidden]="question_isHidden">
+    <p>{{ pseudo }}</p>
+    <p>Une question placeholder ?</p>
+    <button *ngFor="let reponse of reponses" (click)="button_reponse_click()">Réponse {{reponse}}</button>
+    <button [hidden]="suivant_isHidden" >Question suivante</button>
+  </div>
 </ion-content>
