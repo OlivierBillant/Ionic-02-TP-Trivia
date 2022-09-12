@@ -6,33 +6,34 @@
 
 <ion-content [fullscreen]="true">
   <div [hidden]="form_isHidden">
-    <div>
-      <label>Entrez votre pseudo</label>
-      <input type="text" [(ngModel)]="pseudo" />
-    </div>
-    <div>
-      <label>Difficulté</label>
-      <br />
-      <select name="difficulte" id="select_difficulte">
-        <option *ngFor="let niveau of niveaux" value="{{niveau}}">
+    <ion-item>
+      <ion-label>Entrez votre pseudo</ion-label>
+      <ion-input [(ngModel)]="pseudo"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Difficulté</ion-label>
+      <ion-select interface="popover">
+        <ion-select-option *ngFor="let niveau of niveaux" value="{{niveau}}">
           {{niveau}}
-        </option>
-      </select>
-    </div>
-    <div>
-      <input type="checkbox" />
-      <label>Sauvegardez mes informations</label>
-    </div>
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-toggle></ion-toggle>
+      <ion-label>Sauvegardez mes informations</ion-label>
+    </ion-item>
     <div [hidden]="message_isHidden" id="error_message">
       <p class="error_message">{{error_length}}</p>
     </div>
-    <ion-button (click)="button_commencer_click()">Commencer</ion-button>
+    <ion-button (click)="button_commencer_click()" expand="full">Commencer</ion-button>
   </div>
 
   <div [hidden]="question_isHidden">
     <p>{{ pseudo }}</p>
     <p>Une question placeholder ?</p>
-    <button *ngFor="let reponse of reponses" (click)="button_reponse_click()">Réponse {{reponse}}</button>
-    <ion-button [hidden]="suivant_isHidden" >Question suivante</ion-button>
+    <button *ngFor="let reponse of reponses" (click)="button_reponse_click()">
+      Réponse {{reponse}}
+    </button>
+    <ion-button [hidden]="suivant_isHidden">Question suivante</ion-button>
   </div>
 </ion-content>
