@@ -1,0 +1,7 @@
+{
+  "name": "Ionic-02-TP-Trivia",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
