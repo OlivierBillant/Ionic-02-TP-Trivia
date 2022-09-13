@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <div [hidden]="form_isHidden">
     <ion-item>
       <ion-label>Entrez votre pseudo</ion-label>
@@ -31,19 +31,21 @@
   </div>
 
   <div [hidden]="question_isHidden">
-    <form action="post">
-      <p class="detail">Bienvenue {{ pseudo }}</p>
-      <ion-label>Une question placeholder ?</ion-label>
-      <br />
-        <ion-button
-          size="small"
-          type="submit"
-          *ngFor="let reponse of reponses"
-          (click)="button_reponse_click('bottom', reponse)"
-        >
-          Réponse {{reponse}}
-        </ion-button>
-    </form>
+    <ion-text class="detail">Bienvenue {{ pseudo }}</ion-text>
+    <h2 class="ion-text-center">Une question placeholder ?</h2>
+    <br />
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let reponse of reponses">
+          <ion-button
+            expand="full"
+            (click)="button_reponse_click('bottom', reponse)"
+            >Réponse {{ reponse }}</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
     <ion-button [hidden]="suivant_isHidden" expand="full"
       >Question suivante</ion-button
     >
