@@ -12,7 +12,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Difficulté</ion-label>
-      <ion-select interface="popover">
+      <ion-select interface="popover" value="facile">
         <ion-select-option *ngFor="let niveau of niveaux" value="{{niveau}}">
           {{niveau}}
         </ion-select-option>
@@ -40,6 +40,7 @@
           <ion-button
             expand="full"
             (click)="button_reponse_click('bottom', reponse)"
+            color='{{ couleurs[getRandomIntInclusive(0,3)] }}'
             >Réponse {{ reponse }}</ion-button
           >
         </ion-col>

@@ -18,6 +18,7 @@ export class HomePage {
   error_length: string =
     'Votre mot de passe doit faire plus de ' + this.contrainte + ' caractères';
   reponses: string[] = ['A', 'B', 'C', 'D'];
+  couleurs: string[] = ['primary', 'success', 'danger', 'warning'];
 
   constructor(
     private alertController: AlertController,
@@ -53,5 +54,10 @@ export class HomePage {
     });
 
     await toast.present();
+  }
+  getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
