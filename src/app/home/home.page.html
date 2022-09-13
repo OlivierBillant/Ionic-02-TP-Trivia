@@ -36,13 +36,14 @@
     <br />
     <ion-grid>
       <ion-row>
-        <ion-col size="6" *ngFor="let reponse of reponses">
+        <ion-col size="6" *ngFor="let reponse of reponses, index as i">
           <ion-button
             expand="full"
             (click)="button_reponse_click('bottom', reponse)"
-            color='{{ couleurs[getRandomIntInclusive(0,3)] }}'
+            color='{{ couleurs[i] }}'
             >Réponse {{ reponse }}</ion-button
-          >
+            >
+            <!-- color='{{ couleurs[rngService.getInt(0,3)] }}' -->
         </ion-col>
       </ion-row>
     </ion-grid>

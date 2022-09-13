@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { RngService } from '../Services/rng.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomePage {
 
   constructor(
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private rngService: RngService
   ) {}
 
   async button_commencer_click() {
@@ -54,10 +56,5 @@ export class HomePage {
     });
 
     await toast.present();
-  }
-  getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
