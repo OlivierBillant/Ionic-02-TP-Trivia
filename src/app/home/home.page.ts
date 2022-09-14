@@ -21,6 +21,7 @@ export class HomePage {
   listeQuestion: Question[] = [];
   contrainte = 1;
   niveau: string;
+  niveauQuestion: string;
   intitule: string;
   numQuestion: number = 0;
   score: number = 0;
@@ -69,7 +70,6 @@ export class HomePage {
     await toast.present();
     this.disableAnswers();
     this.swapColor(reponse);
-    // this.suivant_isHidden = false;
     this.endGame();
   }
 
@@ -86,18 +86,11 @@ export class HomePage {
     this.numQuestion = 0;
     this.score = 0;
     this.disableAnswers();
-    this.questionSuivante(this.numQuestion);
+    // this.questionSuivante(this.numQuestion);
+    this.form_isHidden = false;
+    this.question_isHidden = true;
   }
 
-  //Recupere la liste des questions
-  // async getQuestionsAsync() {
-  //   this.listeQuestion = this.trivia.getQuestions()[0];
-  //   await this.listeQuestion;
-  // }
-  // async getQuestionsAsync() {
-  //   this.listeQuestion = this.trivia.getQuestionAPI()[0];
-  //   await this.listeQuestion;
-  // }
 
   //Recupere la question à l'index en cours
   async questionSuivante(index: number) {
@@ -108,6 +101,7 @@ export class HomePage {
     console.log(this.listeQuestion);
     
     this.intitule = this.listeQuestion[index].question;
+    this.niveauQuestion = this.listeQuestion[index].difficulty
     this.populateAnswers(index);
   }
 
