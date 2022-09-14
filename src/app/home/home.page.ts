@@ -14,7 +14,6 @@ export class HomePage {
   pseudo: string = '';
   niveaux: string[] = ['facile', 'normal', 'difficile', 'extreme'];
   form_isHidden: boolean = false;
-  message_isHidden: boolean = true;
   question_isHidden: boolean = true;
   suivant_isHidden: boolean = true;
   recommencer_isHidden = true;
@@ -40,9 +39,8 @@ export class HomePage {
 
   //Au clic du commencement
   async button_commencer_click() {
+    //Affichage d'un message d'alerte
     if (this.pseudo.length < this.contrainte) {
-      //this.message_isHidden = false;
-
       const alert = await this.alertController.create({
         header: 'Erreur',
         message: this.error_length,
@@ -86,6 +84,7 @@ export class HomePage {
   //Au clic pour rejouer
   button_recommencer_click() {
     this.numQuestion = 0;
+    this.score = 0;
     this.disableAnswers();
     this.questionSuivante(this.numQuestion);
   }
@@ -104,6 +103,7 @@ export class HomePage {
   }
 
   //Genere le pool de reponse melangees
+  //Alternativement on pourrait utiliser un Fisher-Yates.
   populateAnswers(index: number) {
     this.reponses = [];
     console.log(this.listeQuestion[index].incorrect_answers);
@@ -117,16 +117,12 @@ export class HomePage {
       listeReponseTemp.length
     );
 
-    console.log(this.reponses);
-
     listeReponseTemp.splice(
       randomPosition,
       0,
       this.listeQuestion[index].correct_answer
     );
     this.reponses = listeReponseTemp;
-    console.log(this.reponses);
-    console.log(this.listeQuestion[index].incorrect_answers);
   }
 
   //Vérivation de la réponse

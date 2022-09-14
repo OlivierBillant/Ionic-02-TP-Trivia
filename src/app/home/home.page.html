@@ -22,9 +22,6 @@
       <ion-toggle></ion-toggle>
       <ion-label>Sauvegardez mes informations</ion-label>
     </ion-item>
-    <div [hidden]="message_isHidden" id="error_message">
-      <p class="error_message">{{error_length}}</p>
-    </div>
     <ion-button (click)="button_commencer_click()" expand="full"
       >Commencer</ion-button
     >
@@ -32,7 +29,7 @@
 
   <div [hidden]="question_isHidden">
     <ion-text class="detail">Bienvenue {{ pseudo }}</ion-text>
-    <h2 class="ion-text-center">{{ intitule }} ?</h2>
+    <h2 class="ion-text-center" [innerHTML]="intitule"> ?</h2>
     <br />
     <ion-grid>
       <ion-row>
@@ -40,22 +37,26 @@
           <ion-button
             expand="full"
             (click)="button_reponse_click('bottom', reponse)"
-            color='{{swapColor(reponse)}}'
+            color="{{swapColor(reponse)}}"
             [disabled]="isDisabled"
             >{{ reponse }}</ion-button
-            >
-            <!-- color='{{ couleurs[rngService.getInt(0,3)] }}' -->
+          >
+          <!-- color='{{ couleurs[rngService.getInt(0,3)] }}' -->
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <ion-button [hidden]="suivant_isHidden" expand="full" (click)="button_suivant_click()"
+    <ion-button
+      [hidden]="suivant_isHidden"
+      expand="full"
+      (click)="button_suivant_click()"
       >Question suivante</ion-button
     >
-    <ion-button [hidden]="recommencer_isHidden" expand="full" (click)="button_recommencer_click()"
+    <ion-button
+      [hidden]="recommencer_isHidden"
+      expand="full"
+      (click)="button_recommencer_click()"
       >Recommencer ?</ion-button
     >
-
-
   </div>
 </ion-content>

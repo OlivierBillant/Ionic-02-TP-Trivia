@@ -1,12 +1,9 @@
 export class Answer {
-  correct_answer: string;
-  incorrect_answers: string[];
+  answer: string;
+  correct: boolean;
 
-  constructor(
-    correct_answer: string,
-    incorrect_answers: string[]
-  ) {
-    this.correct_answer = correct_answer;
-    this.incorrect_answers = incorrect_answers;
+  constructor(answer: string, correct: boolean) {
+    this.answer = answer;
+    this.correct = correct;
   }
 }
