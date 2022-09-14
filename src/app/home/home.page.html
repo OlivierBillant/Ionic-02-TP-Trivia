@@ -40,7 +40,7 @@
           <ion-button
             expand="full"
             (click)="button_reponse_click('bottom', reponse)"
-            color='{{ couleurs[i] }}'
+            color='{{swapColor(reponse)}}'
             [disabled]="isDisabled"
             >{{ reponse }}</ion-button
             >
