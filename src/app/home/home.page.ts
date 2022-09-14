@@ -90,14 +90,23 @@ export class HomePage {
   }
 
   //Recupere la liste des questions
+  // async getQuestionsAsync() {
+  //   this.listeQuestion = this.trivia.getQuestions()[0];
+  //   await this.listeQuestion;
+  // }
   async getQuestionsAsync() {
-    this.listeQuestion = this.trivia.getQuestions()[0];
+    this.listeQuestion = this.trivia.getQuestionAPI()[0];
     await this.listeQuestion;
   }
 
   //Recupere la question à l'index en cours
   async questionSuivante(index: number) {
-    this.listeQuestion = await this.trivia.getQuestions();
+    this.listeQuestion = await this.trivia.getQuestionAPI();
+    console.log("Liste question ");
+    console.log(this.listeQuestion);
+    console.log("Liste question index 0");
+    console.log(this.listeQuestion[0]);
+    
     this.intitule = this.listeQuestion[index].question;
     this.populateAnswers(index);
   }

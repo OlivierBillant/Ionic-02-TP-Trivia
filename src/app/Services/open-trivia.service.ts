@@ -28,13 +28,6 @@ export class OpenTriviaService {
 
   constructor(private http: HttpClient) {}
 
-  // getQuestions() {
-  //   return new Promise((resolve, reject) => {
-  //     resolve(this.response);
-  //     reject(-1);
-  //   });
-  // }
-
   async getQuestions() {
     return this.response;
   }
@@ -50,5 +43,15 @@ baseUrl: string = "https://cataas.com";
         reject("Impossible de récupérer l'image : vérifiez votre connexion internet.");
       });
     });
+  }
+
+url: string = "https://opentdb.com/api.php?amount=5";
+  getQuestionAPI(): Promise<any>{
+    return new Promise((resolve, reject) => {
+      this.http.get(this.url).toPromise().then((questions: any) => {
+        resolve(questions.results);
+        reject("Impossible de récupérer les questions, something went HORRIFYINGLY wrong")
+      })
+    })
   }
 }
