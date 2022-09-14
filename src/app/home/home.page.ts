@@ -163,4 +163,24 @@ export class HomePage {
       this.recommencer_isHidden = true;
     }
   }
+
+  // Traitement du résultat d'une requête, retournée par le service, grâce au mot-clé then
+  kittenImg: string = '';
+
+  getKitten() {
+    this.trivia.getCat().then((img: any) => {
+      if (img.length > 1) {
+        this.kittenImg = img;
+      }
+    });
+  }
+
+  // Traitement du résultat d'une requête, retournée par le service, grâce aux mots-clés async / await
+  async getKittenAsync() {
+    try {
+      this.kittenImg = await this.trivia.getCat();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

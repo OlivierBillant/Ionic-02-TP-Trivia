@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,7 @@ export class OpenTriviaService {
     },
   ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   // getQuestions() {
   //   return new Promise((resolve, reject) => {
@@ -34,7 +35,20 @@ export class OpenTriviaService {
   //   });
   // }
 
-  async getQuestions(){
+  async getQuestions() {
     return this.response;
+  }
+
+  //Exemple d'appel API
+baseUrl: string = "https://cataas.com";
+
+  getCat(): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.baseUrl + "/cat?json=true").toPromise().then((result: any) => {
+        console.log(result);
+        resolve(this.baseUrl + result.url);
+        reject("Impossible de récupérer l'image : vérifiez votre connexion internet.");
+      });
+    });
   }
 }
