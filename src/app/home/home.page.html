@@ -41,6 +41,7 @@
             expand="full"
             (click)="button_reponse_click('bottom', reponse)"
             color='{{ couleurs[i] }}'
+            [disabled]="isDisabled"
             >{{ reponse }}</ion-button
             >
             <!-- color='{{ couleurs[rngService.getInt(0,3)] }}' -->

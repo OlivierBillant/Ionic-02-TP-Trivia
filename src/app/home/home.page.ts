@@ -17,11 +17,13 @@ export class HomePage {
   message_isHidden: boolean = true;
   question_isHidden: boolean = true;
   suivant_isHidden: boolean = true;
+  isDisabled: boolean = false;
   listeQuestion: Question[] = [];
   contrainte = 5;
   difficulte: string;
   intitule: string;
   numQuestion: number = 0;
+  score: number = 0;
   error_length: string =
     'Votre mot de passe doit faire plus de ' + this.contrainte + ' caractères';
   reponses: string[] = ['A', 'B', 'C', 'D'];
@@ -60,12 +62,12 @@ export class HomePage {
   ) {
     this.suivant_isHidden = false;
     const toast = await this.toastController.create({
-      message: 'Votre réponse est ' + this.checkAnswer(reponse),
+      message: this.checkAnswer(reponse) + ' réponse ! Score Total : ' +this.score,
       duration: 1500,
       position: position,
     });
     await toast.present();
-    
+    this.disableAnswers();
   }
   
   //Au clic de question suivante
@@ -105,9 +107,15 @@ export class HomePage {
     //Vérivation de la réponse
     checkAnswer(reponse:string){
       if(reponse === this.listeQuestion[this.numQuestion].correct_answer){
-        return "bonne"; 
+        this.score++;
+        return "Bonne"; 
       }else{
-        return "fausse";
+        return "Mauvaise";
       }
+    }
+
+    //Disactiver les réponses
+    disableAnswers(){
+      this.isDisabled = true;
     }
   }
