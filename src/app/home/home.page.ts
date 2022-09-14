@@ -12,7 +12,7 @@ import { RngService } from '../Services/rng.service';
 })
 export class HomePage {
   pseudo: string = '';
-  niveaux: string[] = ['facile', 'normal', 'difficile', 'extreme'];
+  niveaux: string[] = ['easy', 'medium', 'hard'];
   form_isHidden: boolean = false;
   question_isHidden: boolean = true;
   suivant_isHidden: boolean = true;
@@ -20,7 +20,7 @@ export class HomePage {
   isDisabled: boolean = false;
   listeQuestion: Question[] = [];
   contrainte = 1;
-  difficulte: string;
+  niveau: string;
   intitule: string;
   numQuestion: number = 0;
   score: number = 0;
@@ -94,18 +94,18 @@ export class HomePage {
   //   this.listeQuestion = this.trivia.getQuestions()[0];
   //   await this.listeQuestion;
   // }
-  async getQuestionsAsync() {
-    this.listeQuestion = this.trivia.getQuestionAPI()[0];
-    await this.listeQuestion;
-  }
+  // async getQuestionsAsync() {
+  //   this.listeQuestion = this.trivia.getQuestionAPI()[0];
+  //   await this.listeQuestion;
+  // }
 
   //Recupere la question à l'index en cours
   async questionSuivante(index: number) {
-    this.listeQuestion = await this.trivia.getQuestionAPI();
+    this.listeQuestion = await this.trivia.getQuestionAPI(this.niveau);
+    console.log(this.niveau);
     console.log("Liste question ");
+    
     console.log(this.listeQuestion);
-    console.log("Liste question index 0");
-    console.log(this.listeQuestion[0]);
     
     this.intitule = this.listeQuestion[index].question;
     this.populateAnswers(index);

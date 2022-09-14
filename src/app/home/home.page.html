@@ -12,8 +12,8 @@
     </ion-item>
     <ion-item>
       <ion-label>Difficulté</ion-label>
-      <ion-select interface="popover" value="facile">
-        <ion-select-option *ngFor="let niveau of niveaux" value="{{niveau}}">
+      <ion-select interface="popover" [(ngModel)]="niveau">
+        <ion-select-option *ngFor="let niveau of niveaux" value="{{niveau}}" >
           {{niveau}}
         </ion-select-option>
       </ion-select>
@@ -22,7 +22,7 @@
       <ion-toggle></ion-toggle>
       <ion-label>Sauvegardez mes informations</ion-label>
     </ion-item>
-    <ion-button (click)="button_commencer_click()" expand="full"
+    <ion-button (click)="button_commencer_click(niveau)" expand="full"
       >Commencer</ion-button
       >
       <ion-button expand="full" (click)="getKitten()">Afficher un chat</ion-button>

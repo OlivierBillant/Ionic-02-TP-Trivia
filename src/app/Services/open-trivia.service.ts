@@ -45,10 +45,17 @@ baseUrl: string = "https://cataas.com";
     });
   }
 
-url: string = "https://opentdb.com/api.php?amount=5";
-  getQuestionAPI(): Promise<any>{
+rootUrl: string = "https://opentdb.com/api.php?amount=5";
+difficultyParam: string = '&difficulty=';
+urlFinal: string = '';
+  getQuestionAPI(difficulty: string): Promise<any>{
     return new Promise((resolve, reject) => {
-      this.http.get(this.url).toPromise().then((questions: any) => {
+      if(difficulty === 'easy' || difficulty === 'medium' || difficulty === 'hard'){
+        this.urlFinal = this.rootUrl+this.difficultyParam+difficulty;
+      }else{
+        this.urlFinal = this.rootUrl;
+      }
+      this.http.get(this.urlFinal).toPromise().then((questions: any) => {
         resolve(questions.results);
         reject("Impossible de récupérer les questions, something went HORRIFYINGLY wrong")
       })
