@@ -17,6 +17,7 @@ export class HomePage {
   message_isHidden: boolean = true;
   question_isHidden: boolean = true;
   suivant_isHidden: boolean = true;
+  recommencer_isHidden = true;
   isDisabled: boolean = false;
   listeQuestion: Question[] = [];
   contrainte = 1;
@@ -61,7 +62,6 @@ export class HomePage {
     position: 'top' | 'middle' | 'bottom',
     reponse: string
   ) {
-    this.suivant_isHidden = false;
     const toast = await this.toastController.create({
       message:
         this.checkAnswer(reponse) + ' réponse ! Score Total : ' + this.score,
@@ -71,6 +71,8 @@ export class HomePage {
     await toast.present();
     this.disableAnswers();
     this.swapColor(reponse);
+    // this.suivant_isHidden = false;
+    this.endGame();
   }
 
   //Au clic de question suivante
@@ -81,28 +83,17 @@ export class HomePage {
     this.suivant_isHidden = true;
   }
 
+  //Au clic pour rejouer
+  button_recommencer_click() {
+    this.numQuestion = 0;
+    this.disableAnswers();
+    this.questionSuivante(this.numQuestion);
+  }
+
   //Recupere la liste des questions
   async getQuestionsAsync() {
     this.listeQuestion = this.trivia.getQuestions()[0];
     await this.listeQuestion;
-  }
-
-  //Genere le pool de reponse melangees
-  populateAnswers(index: number) {
-    this.reponses = [];
-    let listeReponseTemp: string[] =
-      this.listeQuestion[index].incorrect_answers;
-    let randomPosition: number = this.rngService.getInt(
-      0,
-      listeReponseTemp.length
-    );
-
-    listeReponseTemp.splice(
-      randomPosition,
-      0,
-      this.listeQuestion[index].correct_answer
-    );
-    this.reponses = this.listeQuestion[index].incorrect_answers;
   }
 
   //Recupere la question à l'index en cours
@@ -110,6 +101,32 @@ export class HomePage {
     this.listeQuestion = await this.trivia.getQuestions();
     this.intitule = this.listeQuestion[index].question;
     this.populateAnswers(index);
+  }
+
+  //Genere le pool de reponse melangees
+  populateAnswers(index: number) {
+    this.reponses = [];
+    console.log(this.listeQuestion[index].incorrect_answers);
+
+    let listeReponseTemp: string[] = [];
+    for (let ele of this.listeQuestion[index].incorrect_answers) {
+      listeReponseTemp.push(ele);
+    }
+    let randomPosition: number = this.rngService.getInt(
+      0,
+      listeReponseTemp.length
+    );
+
+    console.log(this.reponses);
+
+    listeReponseTemp.splice(
+      randomPosition,
+      0,
+      this.listeQuestion[index].correct_answer
+    );
+    this.reponses = listeReponseTemp;
+    console.log(this.reponses);
+    console.log(this.listeQuestion[index].incorrect_answers);
   }
 
   //Vérivation de la réponse
@@ -130,13 +147,24 @@ export class HomePage {
   //Changer les couleurs des cases
   swapColor(reponse: string) {
     if (!this.isDisabled) {
-      return this.couleur = this.couleurs[0];
+      return (this.couleur = this.couleurs[0]);
     } else {
       if (reponse === this.listeQuestion[this.numQuestion].correct_answer) {
-       return this.couleurs[1];
+        return this.couleurs[1];
       } else {
-        return this.couleur = this.couleurs[2];
+        return (this.couleur = this.couleurs[2]);
       }
+    }
+  }
+
+  //Vérifier s'il reste des question
+  endGame() {
+    if (this.numQuestion == this.listeQuestion.length - 1) {
+      this.suivant_isHidden = true;
+      this.recommencer_isHidden = false;
+    } else {
+      this.suivant_isHidden = false;
+      this.recommencer_isHidden = true;
     }
   }
 }
