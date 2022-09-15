@@ -171,6 +171,9 @@ export class HomePage {
     }
   }
 
+async speak(){
+}
+
   //Methode navigatge
   navigate(adresse: string, param: string){
     this.router.navigate(['/'+adresse, param]);
