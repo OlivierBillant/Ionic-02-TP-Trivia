@@ -19,7 +19,7 @@
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-toggle></ion-toggle>
+      <ion-toggle [(ngModel)]="isToggled" [checked]="isToggled" (ionChange)="toggle()"></ion-toggle>
       <ion-label>Sauvegardez mes informations</ion-label>
     </ion-item>
     <ion-button (click)="button_commencer_click(niveau)" expand="full"

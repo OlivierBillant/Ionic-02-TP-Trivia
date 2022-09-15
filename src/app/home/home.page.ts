@@ -5,6 +5,9 @@ import { Question } from '../Models/question';
 import { OpenTriviaService } from '../Services/open-trivia.service';
 import { RngService } from '../Services/rng.service';
 import { Router } from '@angular/router';
+import { Preferences } from '@capacitor/preferences';
+import { Infos } from '../Models/infos';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +29,7 @@ export class HomePage {
   intitule: string;
   numQuestion: number = 0;
   score: number = 0;
+  isToggled: boolean = false;
   error_length: string =
     'Votre mot de passe doit faire plus de ' + this.contrainte + ' caractères';
   reponses: string[] = ['A', 'B', 'C', 'D'];
@@ -38,7 +42,7 @@ export class HomePage {
     private rngService: RngService,
     private trivia: OpenTriviaService,
     private router: Router
-  ) {}
+  ) { }
 
   //Au clic du commencement
   async button_commencer_click() {
@@ -55,6 +59,7 @@ export class HomePage {
       this.questionSuivante(this.numQuestion);
       this.form_isHidden = true;
       this.question_isHidden = false;
+      this.saveData();
     }
   }
 
@@ -92,7 +97,7 @@ export class HomePage {
     this.form_isHidden = false;
     this.question_isHidden = true;
     this.navigate('score', this.score.toString());
-    
+
   }
 
 
@@ -101,9 +106,9 @@ export class HomePage {
     this.listeQuestion = await this.trivia.getQuestionAPI(this.niveau);
     console.log(this.niveau);
     console.log("Liste question ");
-    
+
     console.log(this.listeQuestion);
-    
+
     this.intitule = this.listeQuestion[index].question;
     this.niveauQuestion = this.listeQuestion[index].difficulty
     this.populateAnswers(index);
@@ -171,12 +176,9 @@ export class HomePage {
     }
   }
 
-async speak(){
-}
-
   //Methode navigatge
-  navigate(adresse: string, param: string){
-    this.router.navigate(['/'+adresse, param]);
+  navigate(adresse: string, param: string) {
+    this.router.navigate(['/' + adresse, param]);
   }
 
   // Traitement du résultat d'une requête, retournée par le service, grâce au mot-clé then
@@ -198,4 +200,41 @@ async speak(){
       console.log(error);
     }
   }
+
+  //Gestion sauvegarde des données
+  toggle() {
+    console.log(this.isToggled);
+    // this.isToggled = !this.isToggled;
+    // console.log(this.isToggled);
+  }
+
+  saveData() {
+    if (this.isToggled) {
+      console.log(this.getInfos());
+      console.log('isToggled');
+      this.setInfos(new Infos(this.pseudo, this.niveau, this.score))
+      console.log(this.getInfos());
+
+    } else {
+      console.log('isNotToggled');
+    }
+  }
+
+  setInfos = async (infos: Infos) => {
+    await Preferences.set({
+      key: 'infos',
+      value: JSON.stringify(infos),
+    });
+  };
+  getInfos = async () => {
+    const { value } = await Preferences.get({ key: 'infos' });
+    let infosParsed = JSON.parse(value)
+    console.log(`Hello ${value}!`);
+    console.log(infosParsed.pseudo);
+  };
+
+  // removeName = async () => {
+  //   await Preferences.remove({ key: 'name' });
+  // };
+
 }
