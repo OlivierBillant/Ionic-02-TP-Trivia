@@ -27,6 +27,7 @@
       >
       <ion-button expand="full" (click)="getKitten()">Afficher un chat</ion-button>
       <img [src]="kittenImg" alt="kitten">
+      <ion-button expand="full" [routerLink]="['/about']">Go to page about</ion-button>
   </div>
 
   <div [hidden]="question_isHidden">

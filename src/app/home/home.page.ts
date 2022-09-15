@@ -4,6 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { Question } from '../Models/question';
 import { OpenTriviaService } from '../Services/open-trivia.service';
 import { RngService } from '../Services/rng.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +36,8 @@ export class HomePage {
     private alertController: AlertController,
     private toastController: ToastController,
     private rngService: RngService,
-    private trivia: OpenTriviaService
+    private trivia: OpenTriviaService,
+    private router: Router
   ) {}
 
   //Au clic du commencement
@@ -84,11 +86,13 @@ export class HomePage {
   //Au clic pour rejouer
   button_recommencer_click() {
     this.numQuestion = 0;
-    this.score = 0;
+    // this.score = 0;
     this.disableAnswers();
     // this.questionSuivante(this.numQuestion);
     this.form_isHidden = false;
     this.question_isHidden = true;
+    this.navigate('score', this.score.toString());
+    
   }
 
 
@@ -165,6 +169,11 @@ export class HomePage {
       this.suivant_isHidden = false;
       this.recommencer_isHidden = true;
     }
+  }
+
+  //Methode navigatge
+  navigate(adresse: string, param: string){
+    this.router.navigate(['/'+adresse, param]);
   }
 
   // Traitement du résultat d'une requête, retournée par le service, grâce au mot-clé then
