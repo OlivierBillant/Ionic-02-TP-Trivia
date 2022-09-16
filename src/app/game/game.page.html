@@ -5,5 +5,37 @@
 </ion-header>
 
 <ion-content>
+  <div [hidden]="question_isHidden">
+    <ion-text class="detail">Bienvenue {{ pseudo }}</ion-text>
+    <h2 class="ion-text-center" [innerHTML]="intitule"> ?</h2>
+    <p class="ion-text-center" >Niveau de difficulté : {{niveauQuestion}}</p>
+    <br />
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let reponse of reponses, index as i">
+          <ion-button
+            expand="full"
+            (click)="button_reponse_click('bottom', reponse)"
+            color="{{swapColor(reponse)}}"
+            [disabled]="isDisabled"
+            >{{ reponse }}</ion-button
+          >
+          <!-- color='{{ couleurs[rngService.getInt(0,3)] }}' -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
+    <ion-button
+      [hidden]="suivant_isHidden"
+      expand="full"
+      (click)="button_suivant_click()"
+      >Question suivante</ion-button
+    >
+    <ion-button
+      [hidden]="terminer_isHidden"
+      expand="full"
+      (click)="button_terminer_click()"
+      >Temriner ?</ion-button
+    >
+  </div> 
 </ion-content>

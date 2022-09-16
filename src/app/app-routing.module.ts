@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: () => import('./game/game.module').then( m => m.GamePageModule)
   },
   {
+    path: 'game/:pseudo/:niveau/:score',
+    loadChildren: () => import('./game/game.module').then( m => m.GamePageModule)
+  },
+  {
     path: 'score',
     loadChildren: () => import('./score/score.module').then( m => m.ScorePageModule)
   },
