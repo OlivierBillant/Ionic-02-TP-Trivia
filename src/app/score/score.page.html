@@ -6,8 +6,11 @@
 
 <ion-content>
 
-    <ion-text class="ion-text-center">
-     <h1>Votre score final est de : {{ score }} </h1>
-    </ion-text>
-    
+  <ion-text class="ion-text-center">
+    <h1>Votre score final est de : {{ score }} </h1>
+  </ion-text>
+
+  <ion-button expand="full" (click)="button_recommencer_click()">Recommencer ?</ion-button>
+
+  <ion-button expand="full" (click)="button_quitter_click()">Quitter ?</ion-button>
 </ion-content>
